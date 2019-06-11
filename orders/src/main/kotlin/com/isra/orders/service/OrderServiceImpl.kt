@@ -11,14 +11,9 @@ class OrderServiceImpl : OrderService {
     @Autowired
     lateinit var orderRepository: OrderRepository
 
-    override fun findAllByCustomerId(customerId: Long): MutableList<Order> {
+    override fun findAll(): MutableList<Order> {
         val outOrders = mutableListOf<Order>()
-        orderRepository.findAll().forEach {
-            if (it.customer.id == customerId) {
-                outOrders.add(it)
-            }
-        }
-
+        orderRepository.findAll().toCollection(outOrders)
         return outOrders
     }
 }

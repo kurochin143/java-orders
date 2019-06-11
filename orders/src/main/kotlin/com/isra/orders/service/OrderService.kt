@@ -4,5 +4,5 @@ import com.isra.orders.model.Order
 
 interface OrderService {
 
-    fun findAllByCustomerId(customerId: Long): MutableList<Order>
+    fun findAll(): MutableList<Order>
 }

@@ -2,7 +2,6 @@ package com.isra.orders.model
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import javax.persistence.*
-import kotlin.jvm.Transient
 
 @Entity
 @Table(name = "customers")
@@ -25,13 +24,14 @@ class Customer(
         var outstandingAMT: Double?,
         var phone: String?,
 
-        @ManyToOne
+        @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "agentid", nullable = false)
+        @JsonIgnoreProperties(value = ["customers", "hibernateLazyInitializer"])
         var agent: Agent,
 
-
+        @OneToMany(mappedBy = "customer", cascade = [CascadeType.ALL], orphanRemoval = true)
         @JsonIgnoreProperties(value = ["customers"])
-        var orders: List<Order>?
+        var orders: List<Order> = ArrayList()
 ) {
 
     constructor(
@@ -46,6 +46,6 @@ class Customer(
             outstandingAMT: Double?,
             phone: String?,
             agent: Agent
-    ) : this(0, name, city, workingArea, country, grade, openingAMT, receiveAMT, paymentAMT, outstandingAMT, phone, agent, null)
+    ) : this(0, name, city, workingArea, country, grade, openingAMT, receiveAMT, paymentAMT, outstandingAMT, phone, agent)
 
 }

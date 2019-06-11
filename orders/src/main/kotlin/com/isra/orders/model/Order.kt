@@ -1,5 +1,6 @@
 package com.isra.orders.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
 @Entity
@@ -13,12 +14,13 @@ class Order(
         var amount: Double?,
         var advanceAmount: Double?,
 
-        @ManyToOne
+        @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "customerid", nullable = false)
         var customer: Customer,
 
-        @ManyToOne
+        @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "agentid", nullable = false)
+        @JsonIgnore
         var agent: Agent,
 
         var description: String?
