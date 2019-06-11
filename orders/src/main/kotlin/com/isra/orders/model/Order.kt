@@ -5,27 +5,36 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "orders")
-class Order(
+class Order {
+
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
-        @Column(name = "orderid")
-        var id: Long = 0,
+        var orderid: Long = 0
 
-        var amount: Double?,
-        var advanceAmount: Double?,
+        var amount: Double? = null
+        var advanceAmount: Double? = null
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "customerid", nullable = false)
-        var customer: Customer,
+        @JsonIgnore
+        var customer: Customer? = null
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "agentid", nullable = false)
         @JsonIgnore
-        var agent: Agent,
+        var agent: Agent? = null
 
-        var description: String?
-) {
+        var description: String? = null
 
-    constructor(amount: Double?, advanceAmount: Double?, customer: Customer, agent: Agent, description: String?)
-            : this(0, amount, advanceAmount, customer, agent, description)
+        constructor()
+
+        constructor(amount: Double?, advanceAmount: Double?, customer: Customer?, agent: Agent?, description: String?) {
+                this.amount = amount
+                this.advanceAmount = advanceAmount
+                this.customer = customer
+                this.agent = agent
+                this.description = description
+        }
+
+
 }
