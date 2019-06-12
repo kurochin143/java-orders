@@ -22,7 +22,7 @@ class Agent {
 
         @OneToMany(mappedBy = "agent", cascade = [CascadeType.ALL], orphanRemoval = true)
         @JsonIgnoreProperties(value = ["agents"])
-        var orders: List<Customer> = ArrayList()
+        var orders: List<Order> = ArrayList()
 
         constructor()
 

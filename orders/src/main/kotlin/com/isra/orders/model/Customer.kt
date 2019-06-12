@@ -8,7 +8,6 @@ import javax.persistence.*
 class Customer {
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
-        @Column(name = "customerid")
         var customerid: Long = 0
 
         @Column(nullable = false)
